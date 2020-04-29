@@ -3,17 +3,9 @@ from discord import Embed
 from discord.ext import commands
 # 日付を扱うパッケージを読み込む
 from datetime import datetime, date, timedelta
-# 外部apiを取得するために、requestsパッケージを読み込む
-import requests
-# 正規表現を扱うためのパッケージ
-import re
-#コマンド 実行のためのパッケージ
-import subprocess
 #オプショナル引数を扱う
 from typing import Optional
-
-# Botのアクセストークン
-TOKEN = 'NzAzNTQwMTk5Njk0Nzk0NzYz.XqQFDg.gWs7BUPc57qMrAcasg6sEWzUHZ4'
+import json
 
 #各種パラメータ
 BOT_NAME = "BunjiroBot"
@@ -26,7 +18,6 @@ account = []
 
 # 接続に必要なオブジェクトを生成
 bot = commands.Bot(command_prefix="/")
-
 
 # 起動時に動作する処理
 @bot.event
@@ -92,7 +83,9 @@ async def flow(ctx,login):
 			str += str(r["balance"]) + " "
 			str += r["sender"] + " "
 			str += r["comment"] + "\n"
-	
 
-# Botの起動とDiscordサーバーへの接続
-bot.run(TOKEN)
+if __name__ == "__main__":
+	# Botの起動とDiscordサーバーへの接続
+	f = open("token", 'r')
+	TOKEN = f.readline().split('\n')[0]
+	bot.run(TOKEN)
